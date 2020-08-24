@@ -16,6 +16,7 @@ async function main () {
   let osu = await get('https://bloodcat.com/osu/s/' + map.beatmapset_id, 'binary', (current, total) => {
     write(`Downloading "${name}" ${((current * 100) / total).toFixed(2)}%`)
   })
+  name = name.replace(/[/?<>\\:*|"]/g, '')
   fs.writeFileSync(path.join(path.dirname(file), name) + '.osz', osu, { encoding: 'binary' })
 }
 
