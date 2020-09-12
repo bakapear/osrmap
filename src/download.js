@@ -2,14 +2,13 @@ let fs = require('fs')
 let https = require('https')
 let path = require('path')
 
-let key = fs.readFileSync(path.join(__dirname, 'KEY'), { encoding: 'utf-8' })
-
 async function main () {
   let file = process.argv[2]
   if (!file || !file.endsWith('.osr')) return console.error('Please input an osu! replay file.')
   let replay = fs.readFileSync(file, { encoding: 'binary' })
   let hash = replay.substr(replay.indexOf(' ') + 2, 32)
-  let map = await get(`https://osu.ppy.sh/api/get_beatmaps?k=${key}&h=${hash}`)
+  let map = await get('https://ripple.moe/api/get_beatmaps?h=' + hash)
+  console.log(map)
   map = JSON.parse(map)[0]
   if (!map) return console.error('Could not find beatmap from replay.')
   let name = `${map.artist} - ${map.title} [${map.creator}]`
