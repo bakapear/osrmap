@@ -8,10 +8,9 @@ async function main () {
   let replay = fs.readFileSync(file, { encoding: 'binary' })
   let hash = replay.substr(replay.indexOf(' ') + 2, 32)
   let map = await get('https://ripple.moe/api/get_beatmaps?h=' + hash)
-  console.log(map)
   map = JSON.parse(map)[0]
   if (!map) return console.error('Could not find beatmap from replay.')
-  let name = `${map.artist} - ${map.title} [${map.creator}]`
+  let name = `${map.beatmapset_id} ${map.artist} - ${map.title}`
   let osu = await get('https://bloodcat.com/osu/s/' + map.beatmapset_id, 'binary', (current, total) => {
     write(`Downloading "${name}" ${((current * 100) / total).toFixed(2)}%`)
   })
