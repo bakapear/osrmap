@@ -11,7 +11,6 @@ async function main () {
   map = JSON.parse(map)[0]
   if (!map) return console.error('Could not find beatmap from replay.')
   let name = `${map.beatmapset_id} ${map.artist} - ${map.title}`
-  console.log(map)
   let osu = await get('https://bloodcat.com/osu/_data/beatmaps/' + map.beatmapset_id + '.osz', 'binary', (current, total) => {
     write(`Downloading "${name}" ${((current * 100) / total).toFixed(2)}%`)
   })
