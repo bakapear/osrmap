@@ -2,8 +2,6 @@ let fs = require('fs')
 let path = require('path')
 let https = require('https')
 
-let TYPE = 'mini'
-
 async function main (replay) {
   if (!replay || !replay.endsWith('.osr')) return console.error('Please input an osu! replay file.')
 
@@ -26,7 +24,7 @@ async function getMapFromReplay (file) {
 }
 
 async function downloadMap (set, progress) {
-  let map = await get(`https://txy1.sayobot.cn/beatmaps/download/${TYPE}/${set}`, 'binary', progress)
+  let map = await get(`https://storage.ripple.moe/d/${set}`, 'binary', progress)
   return map
 }
 
